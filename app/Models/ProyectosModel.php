@@ -19,7 +19,7 @@ class ProyectosModel extends Model
         'id_usuario',
     ];
 
-    private function normalizar(array $fila): array
+    private function formatear(array $fila): array
     {
         foreach (['id_proyecto', 'id_usuario'] as $campo) {
             if (isset($fila[$campo])) {
@@ -42,7 +42,7 @@ class ProyectosModel extends Model
             'id_usuario',
         ])->findAll();
 
-        return array_map([$this, 'normalizar'], $filas);
+        return array_map([$this, 'formatear'], $filas);
     }
 
     public function pagina(int $pagina, int $porPagina, string $busqueda = '', ?string $estado = null, ?int $idUsuario = null): array
@@ -53,7 +53,7 @@ class ProyectosModel extends Model
             ->getResultArray();
 
         return [
-            'datos' => array_map([$this, 'normalizar'], $filas),
+            'datos' => array_map([$this, 'formatear'], $filas),
             'total' => $total,
         ];
     }
@@ -92,7 +92,7 @@ class ProyectosModel extends Model
     {
         $fila = $this->find($id);
 
-        return $fila === null ? null : $this->normalizar($fila);
+        return $fila === null ? null : $this->formatear($fila);
     }
 
     public function crear(array $datos): int|false

@@ -11,7 +11,7 @@ class CategoriaModel extends Model
     protected $returnType    = 'array';
     protected $allowedFields = ['nombre', 'descripcion', 'estado'];
 
-    private function normalizar(array $fila): array
+    private function formatear(array $fila): array
     {
         if (isset($fila['id_categoria'])) {
             $fila['id_categoria'] = (int) $fila['id_categoria'];
@@ -24,7 +24,7 @@ class CategoriaModel extends Model
     {
         $filas = $this->select(['id_categoria', 'nombre', 'descripcion', 'estado'])->findAll();
 
-        return array_map([$this, 'normalizar'], $filas);
+        return array_map([$this, 'formatear'], $filas);
     }
 
     public function activas(): array
@@ -33,7 +33,7 @@ class CategoriaModel extends Model
             ->whereIn('estado', ['ACTIVA', 'ACTIVO'])
             ->findAll();
 
-        return array_map([$this, 'normalizar'], $filas);
+        return array_map([$this, 'formatear'], $filas);
     }
 
     public function estaActiva(int $id): bool
@@ -47,7 +47,7 @@ class CategoriaModel extends Model
     {
         $fila = $this->find($id);
 
-        return $fila === null ? null : $this->normalizar($fila);
+        return $fila === null ? null : $this->formatear($fila);
     }
 
     public function crear(array $datos): int|false

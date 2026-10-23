@@ -20,7 +20,7 @@ class TareaModel extends Model
         'fecha_limite',
     ];
 
-    private function normalizar(array $fila): array
+    private function formatear(array $fila): array
     {
         foreach (['id_tarea', 'id_proyecto', 'id_categoria'] as $campo) {
             if (isset($fila[$campo])) {
@@ -44,7 +44,7 @@ class TareaModel extends Model
             'fecha_limite',
         ])->findAll();
 
-        return array_map([$this, 'normalizar'], $filas);
+        return array_map([$this, 'formatear'], $filas);
     }
 
     public function paginaProyecto(int $idProyecto, int $pagina, int $porPagina, string $busqueda = '', ?string $estado = null): array
@@ -55,7 +55,7 @@ class TareaModel extends Model
             ->getResultArray();
 
         return [
-            'datos' => array_map([$this, 'normalizar'], $filas),
+            'datos' => array_map([$this, 'formatear'], $filas),
             'total' => $total,
         ];
     }
@@ -78,7 +78,7 @@ class TareaModel extends Model
             ->get()
             ->getRowArray();
 
-        return $fila === null ? null : $this->normalizar($fila);
+        return $fila === null ? null : $this->formatear($fila);
     }
 
     private function consultaProyecto(int $idProyecto, string $busqueda, ?string $estado): BaseBuilder
@@ -115,7 +115,7 @@ class TareaModel extends Model
     {
         $fila = $this->find($id);
 
-        return $fila === null ? null : $this->normalizar($fila);
+        return $fila === null ? null : $this->formatear($fila);
     }
 
     public function crear(array $datos): int|false

@@ -17,7 +17,7 @@ class TokenAccesoModel extends Model
         'activo',
     ];
 
-    private function normalizar(array $fila): array
+    private function formatear(array $fila): array
     {
         foreach (['id_token', 'id_usuario', 'activo'] as $campo) {
             if (isset($fila[$campo])) {
@@ -38,7 +38,7 @@ class TokenAccesoModel extends Model
             'activo',
         ])->findAll();
 
-        return array_map([$this, 'normalizar'], $filas);
+        return array_map([$this, 'formatear'], $filas);
     }
 
     public function buscar(int $id): ?array
@@ -51,7 +51,7 @@ class TokenAccesoModel extends Model
             'activo',
         ])->find($id);
 
-        return $fila === null ? null : $this->normalizar($fila);
+        return $fila === null ? null : $this->formatear($fila);
     }
 
     public function crear(array $datos): int|false
@@ -116,11 +116,11 @@ class TokenAccesoModel extends Model
             'id_usuario' => (int) $fila['id_usuario'],
             'usuario'    => $fila['usuario'],
             'id_rol'     => (int) $fila['id_rol'],
-            'rol_nombre' => $this->normalizarRol($fila['rol_nombre']),
+            'rol_nombre' => $this->formatearRol($fila['rol_nombre']),
         ];
     }
 
-    private function normalizarRol(string $rol): string
+    private function formatearRol(string $rol): string
     {
         return match (strtoupper(trim($rol))) {
             'ADMINISTRADOR', 'ADMIN' => 'ADMINISTRACION',

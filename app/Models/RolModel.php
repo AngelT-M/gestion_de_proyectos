@@ -11,7 +11,7 @@ class RolModel extends Model
     protected $returnType    = 'array';
     protected $allowedFields = ['nombre', 'descripcion'];
 
-    private function normalizar(array $fila): array
+    private function formatear(array $fila): array
     {
         if (isset($fila['id_rol'])) {
             $fila['id_rol'] = (int) $fila['id_rol'];
@@ -24,14 +24,14 @@ class RolModel extends Model
     {
         $filas = $this->select(['id_rol', 'nombre', 'descripcion'])->findAll();
 
-        return array_map([$this, 'normalizar'], $filas);
+        return array_map([$this, 'formatear'], $filas);
     }
 
     public function buscar(int $id): ?array
     {
         $fila = $this->find($id);
 
-        return $fila === null ? null : $this->normalizar($fila);
+        return $fila === null ? null : $this->formatear($fila);
     }
 
     public function crear(array $datos): int|false
