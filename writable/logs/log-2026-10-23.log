@@ -1,0 +1,121 @@
+CRITICAL - 2026-10-23 15:51:57 --> ParseError: syntax error, unexpected token "}"
+[Method: CLI, Route: make:cotroller/categoriaController]
+in APPPATH\Config\Routes.php on line 16.
+ 1 SYSTEMPATH\CLI\Console.php(41): CodeIgniter\Router\RouteCollection->loadRoutes()
+ 2 SYSTEMPATH\Boot.php(444): CodeIgniter\CLI\Console->run()
+ 3 SYSTEMPATH\Boot.php(166): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+ 4 ROOTPATH\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+CRITICAL - 2026-10-23 15:57:07 --> Error: Typed property App\Controllers\CategoriaController::$modelo must not be accessed before initialization
+[Method: GET, Route: api/categorias]
+in APPPATH\Controllers\CategoriaController.php on line 22.
+ 1 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\CategoriaController->mostrar()
+ 2 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CategoriaController))
+ 3 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-10-23 15:57:45 --> Error: Typed property App\Controllers\CategoriaController::$modelo must not be accessed before initialization
+[Method: GET, Route: api/categorias]
+in APPPATH\Controllers\CategoriaController.php on line 22.
+ 1 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\CategoriaController->mostrar()
+ 2 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CategoriaController))
+ 3 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-10-23 15:58:30 --> Error: Typed property App\Controllers\CategoriaController::$modelo must not be accessed before initialization
+[Method: GET, Route: api/categorias]
+in APPPATH\Controllers\CategoriaController.php on line 22.
+ 1 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\CategoriaController->mostrar()
+ 2 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CategoriaController))
+ 3 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-10-23 15:59:24 --> Error: Typed property App\Controllers\CategoriaController::$modelo must not be accessed before initialization
+[Method: GET, Route: api/categorias]
+in APPPATH\Controllers\CategoriaController.php on line 22.
+ 1 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\CategoriaController->mostrar()
+ 2 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CategoriaController))
+ 3 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-10-23 15:59:31 --> Error: Typed property App\Controllers\CategoriaController::$modelo must not be accessed before initialization
+[Method: GET, Route: api/categorias]
+in APPPATH\Controllers\CategoriaController.php on line 22.
+ 1 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\CategoriaController->mostrar()
+ 2 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CategoriaController))
+ 3 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-10-23 15:59:37 --> Error: Typed property App\Controllers\CategoriaController::$modelo must not be accessed before initialization
+[Method: GET, Route: api/categorias]
+in APPPATH\Controllers\CategoriaController.php on line 22.
+ 1 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\CategoriaController->mostrar()
+ 2 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CategoriaController))
+ 3 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-10-23 15:59:37 --> Error: Typed property App\Controllers\CategoriaController::$modelo must not be accessed before initialization
+[Method: GET, Route: api/categorias]
+in APPPATH\Controllers\CategoriaController.php on line 22.
+ 1 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\CategoriaController->mostrar()
+ 2 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CategoriaController))
+ 3 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-10-23 16:01:12 --> TypeError: CodeIgniter\Router\RouteCollection::{closure}(): Argument #1 ($routes) must be of type RouteCollection, CodeIgniter\Router\RouteCollection given, called in C:\xampp\htdocs\fs2026\gestion_de_proyectos\system\Router\RouteCollection.php on line 694
+[Method: GET, Route: api/categorias]
+in APPPATH\Config\Routes.php on line 9.
+ 1 SYSTEMPATH\Router\RouteCollection.php(694): CodeIgniter\Router\RouteCollection::{closure}(Object(CodeIgniter\Router\RouteCollection))
+ 2 APPPATH\Config\Routes.php(9): CodeIgniter\Router\RouteCollection->group('api', [...], Object(Closure))
+ 3 SYSTEMPATH\Router\RouteCollection.php(340): require('C:\\xampp\\htdocs\\fs2026\\gestion_de_proyectos\\app\\Config\\Routes.php')
+ 4 SYSTEMPATH\CodeIgniter.php(841): CodeIgniter\Router\RouteCollection->loadRoutes()
+ 5 SYSTEMPATH\CodeIgniter.php(464): CodeIgniter\CodeIgniter->tryToRouteIt(null)
+ 6 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-10-23 16:01:25 --> Error: Typed property App\Controllers\CategoriaController::$modelo must not be accessed before initialization
+[Method: GET, Route: api/categorias]
+in APPPATH\Controllers\CategoriaController.php on line 22.
+ 1 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\CategoriaController->mostrar()
+ 2 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\CategoriaController))
+ 3 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-10-23 16:02:29 --> ErrorException: A void function must not return a value
+[Method: GET, Route: api/categorias]
+in APPPATH\Models\CategoriaModel.php on line 24.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-10-23 16:02:31 --> ErrorException: A void function must not return a value
+[Method: GET, Route: api/categorias]
+in APPPATH\Models\CategoriaModel.php on line 24.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-10-23 16:53:32 --> Error: Class "App\Models\UserModel" not found
+[Method: POST, Route: api/autenticacion/login]
+in APPPATH\Controllers\AuthController.php on line 13.
+ 1 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\AuthController->login()
+ 2 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+ 3 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-10-23 17:41:40 --> CodeIgniter\HTTP\Exceptions\HTTPException: Failed to parse JSON string. Error: Syntax error
+[Method: POST, Route: api/autenticacion/login]
+in SYSTEMPATH\HTTP\IncomingRequest.php on line 419.
+ 1 SYSTEMPATH\HTTP\IncomingRequest.php(419): CodeIgniter\HTTP\Exceptions\HTTPException::forInvalidJSON('Syntax error')
+ 2 APPPATH\Controllers\BaseController.php(74): CodeIgniter\HTTP\IncomingRequest->getJSON(true)
+ 3 APPPATH\Controllers\AuthController.php(13): App\Controllers\BaseController->cuerpoJson()
+ 4 SYSTEMPATH\CodeIgniter.php(974): App\Controllers\AuthController->login()
+ 5 SYSTEMPATH\CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+ 6 SYSTEMPATH\CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('C:\\xampp\\htdocs\\fs2026\\gestion_de_proyectos\\public\\index.php')
