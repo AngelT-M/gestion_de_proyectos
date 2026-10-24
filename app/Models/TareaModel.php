@@ -20,6 +20,7 @@ class TareaModel extends Model
         'fecha_limite',
     ];
 
+    /** Normaliza los IDs numéricos de la tarea para que la API reciba enteros. */
     private function formatear(array $fila): array
     {
         foreach (['id_tarea', 'id_proyecto', 'id_categoria'] as $campo) {
@@ -31,22 +32,7 @@ class TareaModel extends Model
         return $fila;
     }
 
-    public function mostrar(): array
-    {
-        $filas = $this->select([
-            'id_tarea',
-            'titulo',
-            'descripcion',
-            'id_proyecto',
-            'id_categoria',
-            'prioridad',
-            'estado',
-            'fecha_limite',
-        ])->findAll();
-
-        return array_map([$this, 'formatear'], $filas);
-    }
-
+    /** Cuenta las tareas filtradas del proyecto y devuelve la página y el total encontrado. */
     public function paginaProyecto(int $idProyecto, int $pagina, int $porPagina, string $busqueda = '', ?string $estado = null): array
     {
         $total = $this->consultaProyecto($idProyecto, $busqueda, $estado)->countAllResults();
@@ -60,6 +46,7 @@ class TareaModel extends Model
         ];
     }
 
+    /** Busca una tarea dentro de un proyecto específico; evita devolver tareas de otro proyecto. */
     public function buscarEnProyecto(int $idProyecto, int $idTarea): ?array
     {
         $fila = db_connect()->table($this->table)
@@ -81,6 +68,13 @@ class TareaModel extends Model
         return $fila === null ? null : $this->formatear($fila);
     }
 
+    /** Comprueba si el proyecto contiene tareas que impidan eliminarlo por la relación de la base de datos. */
+    public function tieneEnProyecto(int $idProyecto): bool
+    {
+        return $this->where('id_proyecto', $idProyecto)->countAllResults() > 0;
+    }
+
+    /** Arma la consulta de tareas del proyecto y agrega filtros de texto o estado opcionales. */
     private function consultaProyecto(int $idProyecto, string $busqueda, ?string $estado): BaseBuilder
     {
         $consulta = db_connect()->table($this->table)
@@ -111,13 +105,7 @@ class TareaModel extends Model
         return $consulta;
     }
 
-    public function buscar(int $id): ?array
-    {
-        $fila = $this->find($id);
-
-        return $fila === null ? null : $this->formatear($fila);
-    }
-
+    /** Inserta los campos permitidos de la tarea y devuelve el ID generado o false si falla. */
     public function crear(array $datos): int|false
     {
         $id = $this->insert(array_intersect_key($datos, array_flip($this->allowedFields)));
@@ -125,13 +113,7 @@ class TareaModel extends Model
         return $id === false ? false : (int) $id;
     }
 
-    public function actualizar(int $id, array $datos): bool
-    {
-        $valores = array_intersect_key($datos, array_flip($this->allowedFields));
-
-        return $valores !== [] && $this->update($id, $valores);
-    }
-
+    /** Modifica la tarea solo cuando coinciden tanto el ID de tarea como el del proyecto. */
     public function actualizarEnProyecto(int $idProyecto, int $idTarea, array $datos): bool
     {
         $valores = array_intersect_key($datos, array_flip($this->allowedFields));
@@ -143,11 +125,7 @@ class TareaModel extends Model
                 ->update($valores);
     }
 
-    public function eliminar(int $id): bool
-    {
-        return $this->delete($id);
-    }
-
+    /** Elimina la tarea únicamente si está dentro del proyecto indicado. */
     public function eliminarEnProyecto(int $idProyecto, int $idTarea): bool
     {
         return db_connect()->table($this->table)

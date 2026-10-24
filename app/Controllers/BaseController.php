@@ -3,50 +3,11 @@
 namespace App\Controllers;
 
 use CodeIgniter\Controller;
-use CodeIgniter\HTTP\CLIRequest;
-use CodeIgniter\HTTP\IncomingRequest;
-use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
-use Psr\Log\LoggerInterface;
 
-/**
- * BaseController provides a convenient place for loading components
- * and performing functions that are needed by all your controllers.
- *
- * Extend this class in any new controllers:
- * ```
- *     class Home extends BaseController
- * ```
- *
- * For security, be sure to declare any new methods as protected or private.
- */
 abstract class BaseController extends Controller
 {
-    /**
-     * Be sure to declare properties for any property fetch you initialized.
-     * The creation of dynamic property is deprecated in PHP 8.2.
-     */
-
-    // protected $session;
-
-    /**
-     * @param CLIRequest|IncomingRequest $request
-     *
-     * @return void
-     */
-    public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
-    {
-        // Load here all helpers you want to be available in your controllers that extend BaseController.
-        // Caution: Do not put the this below the parent::initController() call below.
-        // $this->helpers = ['form', 'url'];
-
-        // Caution: Do not edit this line.
-        parent::initController($request, $response, $logger);
-
-        // Preload any models, libraries, etc, here.
-        // $this->session = service('session');
-    }
-
+    /** Envuelve los datos y metadatos en el formato JSON de éxito usado por la API. */
     protected function respuestaExitosa(mixed $datos, int $estado = 200, ?array $meta = null): ResponseInterface
     {
         $respuesta = ['exito' => true, 'datos' => $datos];
@@ -58,6 +19,7 @@ abstract class BaseController extends Controller
         return $this->response->setStatusCode($estado)->setJSON($respuesta);
     }
 
+    /** Construye una respuesta JSON de error y agrega detalles cuando están disponibles. */
     protected function respuestaError(string $mensaje, int $estado, array $errores = []): ResponseInterface
     {
         $respuesta = ['exito' => false, 'mensaje' => $mensaje];
@@ -69,6 +31,7 @@ abstract class BaseController extends Controller
         return $this->response->setStatusCode($estado)->setJSON($respuesta);
     }
 
+    /** Lee y decodifica el cuerpo HTTP; devuelve un objeto JSON asociativo o null si no es válido. */
     protected function cuerpoJson(): ?array
     {
         $cuerpo = $this->request->getBody();
@@ -81,6 +44,7 @@ abstract class BaseController extends Controller
         return is_array($json) && $json !== [] && ! array_is_list($json) ? $json : null;
     }
 
+    /** Lee del encabezado de autenticación el usuario que el filtro adjuntó a la petición. */
     protected function usuarioApi(): ?array
     {
         $usuario = json_decode($this->request->getHeaderLine('X-Authenticated-User'), true);
@@ -88,11 +52,13 @@ abstract class BaseController extends Controller
         return is_array($usuario) ? $usuario : null;
     }
 
+    /** Interpreta el rol del usuario autenticado para aplicar permisos administrativos. */
     protected function esAdministrador(?array $usuario): bool
     {
         return ($usuario['rol_nombre'] ?? null) === 'ADMINISTRACION';
     }
 
+    /** Lee y valida page/per_page de la URL; devuelve valores enteros o null si son inválidos. */
     protected function parametrosPaginacion(): ?array
     {
         $pagina = $this->request->getGet('page') ?? '1';
@@ -119,6 +85,7 @@ abstract class BaseController extends Controller
         return ['pagina' => $pagina, 'por_pagina' => $porPagina];
     }
 
+    /** Ejecuta las reglas sobre los datos recibidos y devuelve errores o un arreglo vacío. */
     protected function erroresValidacion(array $datos, array $reglas): array
     {
         $validacion = service('validation');

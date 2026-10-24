@@ -26,18 +26,4 @@ $routes->group('api', ['filter' => 'cors'], static function (RouteCollection $ro
         $routes->match(['put', 'patch'], 'proyectos/(:num)/tareas/(:num)', 'TareaController::actualizar/$1/$2');
         $routes->delete('proyectos/(:num)/tareas/(:num)', 'TareaController::eliminar/$1/$2');
     });
-
-    $routes->group('', ['filter' => 'auth:admin'], static function (RouteCollection $routes): void {
-        $routes->get('categorias', 'CategoriaController::mostrar');
-        $routes->get('categoria/(:num)', 'CategoriaController::buscar/$1');
-        $routes->post('categoriaCrear', 'CategoriaController::crear');
-        $routes->put('categoriaActualizar/(:num)', 'CategoriaController::actualizar/$1');
-        $routes->delete('categoriaEliminar/(:num)', 'CategoriaController::eliminar/$1');
-
-        $routes->get('roles', 'RolController::mostrar');
-        $routes->get('rolBuscar/(:num)', 'RolController::buscar/$1');
-        $routes->post('rolCrear', 'RolController::crear');
-        $routes->put('rolActualizar/(:num)', 'RolController::actualizar/$1');
-        $routes->delete('rolEliminar/(:num)', 'RolController::eliminar/$1');
-    });
 });

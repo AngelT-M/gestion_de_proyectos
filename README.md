@@ -1,61 +1,104 @@
-# CodeIgniter 4 Framework
+# API de gestión de proyectos
 
-## What is CodeIgniter?
+API REST construida con PHP y CodeIgniter 4. Permite iniciar/cerrar sesión, consultar categorías activas y administrar proyectos con sus tareas.
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+## Preparar el proyecto
 
-This repository holds the distributable version of the framework.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+1. Inicia Apache y MySQL desde XAMPP.
+2. Importa `bd_gestor_proyecto.sql` en MySQL. El script crea la base `gestion_proyectos` y sus tablas de roles, usuarios, categorías, proyectos, tareas y tokens.
+3. Revisa las credenciales de conexión en `app/Config/Database.php`.
+4. La URL base configurada es `http://localhost/fs2026/gestion_de_proyectos/public/`. Todas las rutas de la API empiezan con `/api`.
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+## Flujo de datos
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+```text
+Petición HTTP
+  → ruta definida en app/Config/Routes.php
+  → AuthFilter valida Bearer token en rutas protegidas
+  → controlador valida entrada, permisos y respuesta
+  → modelo ejecuta consultas con el Query Builder de CodeIgniter
+  → respuesta JSON y código HTTP
+```
 
-## Important Change with index.php
+Los comentarios `1.`, `2.`, etc. dentro de los controladores marcan el orden del flujo. Para aprenderlo, empieza por una ruta de lectura y sigue la petición desde `Routes.php` hasta el método del modelo.
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+## Rutas
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+Todas las rutas, excepto el login, requieren el encabezado:
 
-**Please** read the user guide for a better explanation of how CI4 works!
+```http
+Authorization: Bearer <token>
+```
 
-## Repository Management
+| Método | Ruta | Función |
+|---|---|---|
+| `POST` | `/api/autenticacion/login` | Validar credenciales y obtener token |
+| `POST` | `/api/autenticacion/logout` | Revocar el token actual |
+| `GET` | `/api/categorias/activas` | Listar categorías que se pueden asignar a tareas |
+| `GET` | `/api/proyectos` | Listar proyectos con paginación y filtros |
+| `GET` | `/api/proyectos/{id}` | Consultar un proyecto |
+| `POST` | `/api/proyectos` | Crear un proyecto |
+| `PUT`, `PATCH` | `/api/proyectos/{id}` | Actualizar un proyecto |
+| `DELETE` | `/api/proyectos/{id}` | Eliminar un proyecto |
+| `GET` | `/api/proyectos/{id_proyecto}/tareas` | Listar tareas del proyecto con paginación y filtros |
+| `GET` | `/api/proyectos/{id_proyecto}/tareas/{id_tarea}` | Consultar una tarea del proyecto |
+| `POST` | `/api/proyectos/{id_proyecto}/tareas` | Crear una tarea en el proyecto |
+| `PUT`, `PATCH` | `/api/proyectos/{id_proyecto}/tareas/{id_tarea}` | Actualizar una tarea del proyecto |
+| `DELETE` | `/api/proyectos/{id_proyecto}/tareas/{id_tarea}` | Eliminar una tarea del proyecto |
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+Las rutas de tareas usan dos segmentos separados por `/`: por ejemplo, `/api/proyectos/12/tareas/34`.
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+## Roles y acceso
 
-## Contributing
+- `ADMINISTRACION` puede consultar y gestionar cualquier proyecto.
+- `USUARIO` puede consultar y gestionar únicamente sus propios proyectos.
+- Las tareas heredan el acceso del proyecto al que pertenecen.
+- Cualquier usuario autenticado puede consultar categorías activas.
+- Un usuario normal no puede asignar un proyecto a otra persona.
+- Para respetar la relación de la base de datos, elimina las tareas antes de eliminar su proyecto; si quedan tareas, la API responde `409`.
 
-We welcome contributions from the community.
+## Búsqueda y paginación
 
-Please read the [*Contributing to CodeIgniter*](https://github.com/codeigniter4/CodeIgniter4/blob/develop/CONTRIBUTING.md) section in the development repository.
+En los listados de proyectos y tareas se pueden usar estos parámetros:
 
-## Server Requirements
+| Parámetro | Predeterminado | Límite / función |
+|---|---:|---|
+| `page` | `1` | Página, entero mayor que cero |
+| `per_page` | `20` | Elementos por página, de 1 a 100 |
+| `q` | vacío | Busca texto en el nombre/título o la descripción |
+| `estado` | vacío | Filtra por estado |
 
-PHP version 8.2 or higher is required, with the following extensions installed:
+Ejemplo: `/api/proyectos?page=1&per_page=10&q=tienda&estado=EN_PROCESO`.
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+## Formato de respuesta
 
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - The end of life date for PHP 8.1 was December 31, 2025.
-> - If you are still using below PHP 8.2, you should upgrade immediately.
-> - The end of life date for PHP 8.2 will be December 31, 2026.
+Éxito:
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+```json
+{
+  "exito": true,
+  "datos": {},
+  "meta": {
+    "pagina": 1,
+    "por_pagina": 20,
+    "total": 1
+  }
+}
+```
 
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+`meta` se incluye en respuestas paginadas. Los errores usan `exito: false`, un `mensaje` y, cuando aplica, un objeto `errores`.
+
+Para crear una tarea, envía un objeto JSON con título y una categoría activa:
+
+```json
+{
+  "titulo": "Preparar pruebas",
+  "descripcion": "Verificar el flujo de la API",
+  "id_categoria": 1,
+  "prioridad": "MEDIA",
+  "estado": "PENDIENTE",
+  "fecha_limite": "2099-12-31"
+}
+```
+
+Al crear un proyecto, los campos requeridos son `nombre` y `fecha_inicio` (`YYYY-MM-DD`). El propietario se asigna al usuario autenticado; solo administración puede indicar `id_usuario`.

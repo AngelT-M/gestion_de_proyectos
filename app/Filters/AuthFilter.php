@@ -11,20 +11,19 @@ class AuthFilter implements FilterInterface
 {
     public function before(RequestInterface $request, $arguments = null)
     {
+        // 1. Exigir un Bearer token con el formato generado durante el login.
         $authorization = $request->getHeaderLine('Authorization');
         if (! preg_match('/\ABearer ([a-f0-9]{64})\z/', $authorization, $matches)) {
             return $this->error('Se requiere un token Bearer válido.', 401);
         }
 
+        // 2. Buscar el usuario asociado y rechazar tokens vencidos o revocados.
         $usuario = model(TokenAccesoModel::class)->usuarioPorToken($matches[1]);
         if ($usuario === null) {
             return $this->error('El token no es válido, está vencido o fue revocado.', 401);
         }
 
-        if (in_array('admin', $arguments ?? [], true) && $usuario['rol_nombre'] !== 'ADMINISTRACION') {
-            return $this->error('No tienes permisos para realizar esta acción.', 403);
-        }
-
+        // 3. Pasar la identidad autenticada al controlador para aplicar permisos por propietario y rol.
         $request->removeHeader('X-Authenticated-User');
         $request->setHeader('X-Authenticated-User', json_encode($usuario));
     }
