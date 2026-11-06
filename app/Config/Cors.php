@@ -70,7 +70,7 @@ class Cors extends BaseConfig
          */
         'allowedHeaders' => ['Authorization', 'Content-Type'],
 
-        /**
+        /**e
          * Set headers to expose.
          *
          * The Access-Control-Expose-Headers response header allows a server to
